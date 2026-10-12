@@ -3,175 +3,230 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>서영 자기소개서</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&display=swap">
+<title>서영과 일하는 법</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
 <style>
-/* Layout: 둥근 카드들이 세로로 이어지는 한 장짜리 소개 — 인사말 → 관심사 → 프로젝트 → 공부 중 → 함께해요
-   Single pastel light theme by choice: every color set explicitly */
+/* Layout: 처음 만나는 팀원을 위한 사용설명서 — 인사(히어로) → 한눈에 보는 서영 → 이런 일을 맡을게요 → 저와 일하는 법(사용설명서 목록) → 제안하는 팀 규칙 → 함께한 팀 프로젝트 → 첫 회의 때 나눠요 → 서명
+   Brand idea: "잇다" — 두 점을 잇는 선. 더스티 파스텔(페리윙클·세이지·블러시) + 짙은 슬레이트 잉크 */
 :root {
-  --bg: #fdf8f3;
-  --card: #ffffff;
-  --ink: #3d3a4b;
-  --soft-ink: #7a7590;
-  --peach: #ffd9cc;
-  --peach-ink: #c4593a;
-  --mint: #cfeedd;
-  --mint-ink: #2f7d58;
-  --lilac: #e4dcfb;
-  --lilac-ink: #6a51c2;
-  --butter: #fff1b8;
-  --butter-ink: #9a7408;
-  --sky: #d6e8fb;
-  --sky-ink: #2f68a8;
-  --font-display: "Jua", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-  --font-body: "Gowun Dodum", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-  color-scheme: light;
+  --bg: #f6f7fb;
+  --paper: #ffffff;
+  --ink: #232838;
+  --muted: #646b82;
+  --line: #e1e4ee;
+  --peri: #8e9be0;  --peri-soft: #e8ebfa;  --peri-ink: #4453a8;
+  --sage: #a9c7b5;  --sage-soft: #e7f1eb;  --sage-ink: #3c6b52;
+  --blush: #e8b8ae; --blush-soft: #f8e8e4; --blush-ink: #9a4f40;
+  --font-display: "Gowun Batang", "AppleMyungjo", "Batang", serif;
+  --font-body: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #14161f; --paper: #1b1e2a; --ink: #e9ebf3; --muted: #a2a8bd; --line: #2b2f3f;
+    --peri: #9aa6ea; --peri-soft: #252b47; --peri-ink: #b8c1f5;
+    --sage: #9cc1ab; --sage-soft: #1f3128; --sage-ink: #b4d7c2;
+    --blush: #e2ada2; --blush-soft: #3a2724; --blush-ink: #f0c3b9;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #14161f; --paper: #1b1e2a; --ink: #e9ebf3; --muted: #a2a8bd; --line: #2b2f3f;
+  --peri: #9aa6ea; --peri-soft: #252b47; --peri-ink: #b8c1f5;
+  --sage: #9cc1ab; --sage-soft: #1f3128; --sage-ink: #b4d7c2;
+  --blush: #e2ada2; --blush-soft: #3a2724; --blush-ink: #f0c3b9;
+  color-scheme: dark;
 }
 html, body { margin: 0; }
 body {
   background: var(--bg); color: var(--ink); font-family: var(--font-body);
-  font-size: 16px; line-height: 1.85; padding-inline: 18px; padding-block: 40px 60px;
-  word-break: keep-all;
-  background-image:
-    radial-gradient(circle at 8% 6%, var(--peach) 0 90px, transparent 91px),
-    radial-gradient(circle at 96% 22%, var(--lilac) 0 70px, transparent 71px),
-    radial-gradient(circle at 4% 70%, var(--mint) 0 60px, transparent 61px);
-  background-attachment: fixed;
+  font-size: 16px; line-height: 1.7; padding-inline: 18px; padding-block: 48px 64px; word-break: keep-all;
 }
-.wrap { max-width: 680px; margin: 0 auto; display: grid; gap: 22px; position: relative; }
+.wrap { max-width: 760px; margin: 0 auto; display: grid; gap: 56px; }
 
-.card {
-  background: var(--card); border-radius: 28px; padding: 28px 26px;
-  box-shadow: 0 6px 0 rgba(61, 58, 75, .06), 0 14px 30px rgba(61, 58, 75, .06);
-  display: grid; gap: 14px; min-width: 0;
+/* 히어로 */
+.hero { display: grid; gap: 20px; justify-items: start; }
+.mark { width: 64px; height: 64px; }
+.mark .ring { fill: var(--peri-soft); }
+.mark .arc { fill: none; stroke: var(--peri-ink); stroke-width: 2.2; stroke-linecap: round; }
+.mark .d1 { fill: var(--blush); } .mark .d2 { fill: var(--sage); }
+.tagline { font-family: var(--font-mono); font-size: 12px; letter-spacing: .2em; color: var(--muted); margin: 0; }
+h1 {
+  font-family: var(--font-display); font-weight: 700; font-size: clamp(30px, 6.4vw, 48px);
+  line-height: 1.3; margin: 0; text-wrap: balance;
 }
+h1 em { font-style: normal; background: linear-gradient(transparent 64%, var(--peri-soft) 64%); }
+.lede { margin: 0; color: var(--muted); font-size: 17px; max-width: 32em; }
 
-.hello { text-align: center; padding-block: 40px 34px; gap: 16px; justify-items: center; }
-.avatar {
-  width: 92px; height: 92px; border-radius: 50%;
-  background: var(--butter); display: grid; place-items: center;
-  font-family: var(--font-display); font-size: 40px; color: var(--butter-ink);
-  box-shadow: inset 0 -6px 0 rgba(154, 116, 8, .12);
+/* 한눈에 */
+.glance {
+  background: var(--paper); border: 1px solid var(--line); border-radius: 22px;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  overflow: hidden;
 }
-.hello h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(28px, 6vw, 38px); line-height: 1.35; margin: 0; text-wrap: balance; }
-.hello p { margin: 0; color: var(--soft-ink); max-width: 30em; }
-.tags { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
-.tag { border-radius: 999px; padding: 4px 14px; font-size: 14px; }
-.t-peach { background: var(--peach); color: var(--peach-ink); }
-.t-mint { background: var(--mint); color: var(--mint-ink); }
-.t-lilac { background: var(--lilac); color: var(--lilac-ink); }
-.t-sky { background: var(--sky); color: var(--sky-ink); }
-.t-butter { background: var(--butter); color: var(--butter-ink); }
+.glance div { padding: 18px 20px; display: grid; gap: 2px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); margin: 0 -1px -1px 0; min-width: 0; }
+.glance dt { font-family: var(--font-mono); font-size: 11px; letter-spacing: .16em; color: var(--muted); }
+.glance dd { margin: 0; font-weight: 500; font-size: 15px; }
 
-h2 {
-  font-family: var(--font-display); font-weight: 400; font-size: 23px; margin: 0;
-  display: flex; align-items: center; gap: 10px;
+/* 섹션 공통 */
+section { display: grid; gap: 18px; }
+.label { font-family: var(--font-mono); font-size: 12px; letter-spacing: .18em; color: var(--muted); margin: 0; }
+h2 { font-family: var(--font-display); font-size: 26px; font-weight: 700; margin: 0; line-height: 1.35; text-wrap: balance; }
+.head { display: grid; gap: 6px; }
+.head p.sub { margin: 0; color: var(--muted); font-size: 15px; }
+
+/* 맡을 일 */
+.roles { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
+.role { border-radius: 24px; padding: 22px; display: grid; gap: 8px; align-content: start; min-width: 0; }
+.role .k { font-family: var(--font-mono); font-size: 12px; letter-spacing: .14em; }
+.role b { font-family: var(--font-display); font-size: 20px; line-height: 1.4; }
+.role p { margin: 0; font-size: 14px; opacity: .85; }
+.r1 { background: var(--peri-soft); } .r1 .k, .r1 b { color: var(--peri-ink); }
+.r2 { background: var(--sage-soft); } .r2 .k, .r2 b { color: var(--sage-ink); }
+.r3 { background: var(--blush-soft); } .r3 .k, .r3 b { color: var(--blush-ink); }
+
+/* 사용설명서 */
+.manual { list-style: none; margin: 0; padding: 0; display: grid; border-top: 1px solid var(--line); }
+.manual li {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 8px 28px;
+  padding: 20px 0; border-bottom: 1px solid var(--line);
 }
-.dot { width: 14px; height: 14px; border-radius: 50%; flex: none; }
-p { margin: 0; }
-.prose { display: grid; gap: 12px; }
+.manual .me { font-family: var(--font-display); font-size: 18px; font-weight: 700; line-height: 1.5; }
+.manual .tip { margin: 0; font-size: 15px; color: var(--muted); }
+.manual .tip strong { color: var(--ink); font-weight: 500; }
+@media (max-width: 560px) { .manual li { grid-template-columns: minmax(0, 1fr); } }
 
-.projects { display: grid; gap: 12px; }
-.project { border-radius: 20px; padding: 18px 20px; display: grid; gap: 6px; }
-.project h3 { font-family: var(--font-display); font-weight: 400; font-size: 19px; margin: 0; }
-.project p { font-size: 15px; line-height: 1.75; }
-.project .kind { font-size: 13px; opacity: .85; }
-.p-peach { background: #fff1ec; } .p-peach h3, .p-peach .kind { color: var(--peach-ink); }
-.p-mint { background: #edf9f2; } .p-mint h3, .p-mint .kind { color: var(--mint-ink); }
-.p-lilac { background: #f4f0fe; } .p-lilac h3, .p-lilac .kind { color: var(--lilac-ink); }
-.p-sky { background: #eef5fd; } .p-sky h3, .p-sky .kind { color: var(--sky-ink); }
-.p-butter { background: #fff9de; } .p-butter h3, .p-butter .kind { color: var(--butter-ink); }
-
-.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
-.steps li { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start; }
-.steps .badge {
-  font-family: var(--font-display); font-size: 14px; border-radius: 999px;
-  padding: 2px 12px; margin-top: 3px; white-space: nowrap;
+/* 팀 규칙 */
+.rules { display: grid; gap: 10px; }
+.rule {
+  display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 14px; align-items: start;
+  background: var(--paper); border: 1px solid var(--line); border-radius: 18px; padding: 16px 18px;
 }
-.steps p { min-width: 0; }
+.rule .when { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; color: var(--sage-ink); background: var(--sage-soft); border-radius: 999px; padding: 3px 12px; white-space: nowrap; margin-top: 2px; }
+.rule p { margin: 0; font-size: 15px; }
 
-.closing { background: var(--lilac); text-align: center; justify-items: center; }
-.closing h2 { color: var(--lilac-ink); justify-content: center; }
-.closing p { max-width: 30em; }
+/* 프로젝트 */
+.projects { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
+.projects li { display: grid; grid-template-columns: 9.5em minmax(0, 1fr); gap: 4px 20px; padding: 14px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+.projects .kind { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+.projects .kind::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--dot); flex: none; }
+.projects b { font-family: var(--font-display); font-size: 17px; margin-right: 8px; }
+.projects span.desc { font-size: 14px; color: var(--muted); }
+@media (max-width: 560px) { .projects li { grid-template-columns: minmax(0, 1fr); } }
 
-footer { text-align: center; color: var(--soft-ink); font-size: 14px; }
+/* 첫 회의 */
+.ask { background: var(--peri-soft); border-radius: 24px; padding: 26px 24px; display: grid; gap: 14px; }
+.ask h2 { color: var(--peri-ink); }
+.ask ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+.ask li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 12px; font-size: 15px; }
+.ask li::before { content: ""; width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--peri-ink); margin-top: 7px; }
 
-@media (max-width: 440px) {
-  .card { padding: 24px 20px; border-radius: 24px; }
-  .steps li { grid-template-columns: 1fr; gap: 4px; }
-  .steps .badge { justify-self: start; }
+footer {
+  border-top: 1px solid var(--line); padding-top: 24px; display: flex; flex-wrap: wrap;
+  justify-content: space-between; align-items: baseline; gap: 10px;
 }
+footer .sign { font-family: var(--font-display); font-size: 20px; }
+footer span { color: var(--muted); font-size: 14px; }
 </style>
-</head>
-<body>
+
 <main class="wrap">
 
-  <section class="card hello">
-    <div class="avatar" aria-hidden="true">서</div>
-    <h1>안녕하세요,<br>경영정보학부 서영이에요</h1>
-    <p>경영과 IT가 만나는 경영정보학을 공부하고 있어요. 필요한 정보가 필요한 사람에게 잘 닿도록 돕는 데이터·AI 서비스를 기획하는 사람이 되고 싶어요.</p>
-    <div class="tags">
-      <span class="tag t-peach">AI 데이터 기획자 꿈나무</span>
-      <span class="tag t-mint">서비스 기획</span>
-      <span class="tag t-lilac">데이터 분석 공부 중</span>
-      <span class="tag t-sky">공모전·아이디어톤</span>
+  <header class="hero">
+    <svg class="mark" viewBox="0 0 52 52" aria-hidden="true">
+      <circle class="ring" cx="26" cy="26" r="26"></circle>
+      <path class="arc" d="M14 32 C 18 16, 34 16, 38 32"></path>
+      <circle class="d1" cx="14" cy="32" r="5"></circle>
+      <circle class="d2" cx="38" cy="32" r="5"></circle>
+    </svg>
+    <p class="tagline">HELLO, TEAM · 처음 뵙겠습니다</p>
+    <h1>국민대학교 경영정보학부<br>26학번 <em>임서영</em></h1>
+    <p class="lede">경영정보학부에서 AI·데이터 서비스 기획을 공부하고 있어요. 같이 일하기 전에 저를 빨리 파악하실 수 있도록 한 장으로 정리했습니다.</p>
+  </header>
+
+  <dl class="glance" aria-label="한눈에 보는 서영">
+    <div><dt>소속</dt><dd>경영대학 경영정보학부</dd></div>
+    <div><dt>맡고 싶은 일</dt><dd>기획 · 리서치</dd></div>
+    <div><dt>지금 공부 중</dt><dd>Python · ADsP</dd></div>
+    <div><dt>다음 목표</dt><dd>SQL · SQLD</dd></div>
+  </dl>
+
+  <section>
+    <div class="head">
+      <p class="label">WHAT I CAN TAKE</p>
+      <h2>이런 일을 맡을 수 있어요</h2>
+    </div>
+    <div class="roles">
+      <div class="role r1"><span class="k">PROBLEM</span><b>문제 정의 · 사용자 조사</b><p>누가 왜 불편한지 정리하고, 설문을 설계해 근거를 모읍니다.</p></div>
+      <div class="role r2"><span class="k">PLAN</span><b>서비스 기획 · 정보 구조</b><p>기획서, 기능 정보 구조도, 화면 목업으로 아이디어를 눈에 보이게 만듭니다.</p></div>
+      <div class="role r3"><span class="k">CONNECT</span><b>정리 · 공유</b><p>회의에서 나온 이야기를 문서로 묶어 모두가 같은 그림을 보게 합니다.</p></div>
     </div>
   </section>
 
-  <section class="card">
-    <h2><span class="dot" style="background: var(--peach)"></span>제가 관심 있는 것</h2>
-    <div class="prose">
-      <p>저는 <b>정보 격차</b>에 관심이 많아요. 의지와 능력은 충분한데 무엇을 어떻게 시작해야 할지 알려주는 정보가 없어서 기회를 놓치는 사람들이 생각보다 많더라고요. 학생들을 대상으로 학습 멘토링 봉사를 하면서 이 문제를 가까이에서 느꼈어요.</p>
-      <p>그래서 기술을 이해하면서도 사람의 불편을 먼저 볼 줄 아는 기획자가 되고 싶어 경영정보학을 선택했어요.</p>
+  <section>
+    <div class="head">
+      <p class="label">USER MANUAL</p>
+      <h2>저와 일할 때 알아두면 좋은 것</h2>
     </div>
-  </section>
-
-  <section class="card">
-    <h2><span class="dot" style="background: var(--mint)"></span>이런 걸 만들어 봤어요</h2>
-    <div class="projects">
-      <div class="project p-sky">
-        <span class="kind">진행 중 · 팀 프로젝트</span>
-        <h3>Konnect · 우리 학교 활동 정보 커뮤니티</h3>
-        <p>나에게 맞는 교내외 활동을 찾고, 먼저 참여한 사람들의 후기를 한곳에서 볼 수 있는 웹앱을 기획하고 있어요. 설문과 인터뷰로 학생들의 진짜 불편부터 확인하려고 해요.</p>
-      </div>
-      <div class="project p-peach">
-        <span class="kind">아이디어톤</span>
-        <h3>돈독 · 20대 1인 가구 손실관리 플랫폼</h3>
-        <p>모르고 지나치는 미수령금, 잊고 있던 구독, 비효율 요금제 같은 '새는 돈'을 찾아 주는 서비스예요. 행동경제학의 전망이론을 바탕으로, 여러 학과 선배들과 함께 문제 정의부터 수익 모델, 발표까지 완주했어요.</p>
-      </div>
-      <div class="project p-mint">
-        <span class="kind">아이디어 공모전</span>
-        <h3>세이프박스 · 행동경제학 예산관리 앱</h3>
-        <p>혼자 사는 청년들이 부담 없이 돈 관리를 시작할 수 있도록 돕는 앱을 기획하고, 사업계획서를 처음부터 끝까지 써 봤어요.</p>
-      </div>
-      <div class="project p-butter">
-        <span class="kind">창업 기획 프로젝트</span>
-        <h3>안심한끼 · 혼자 계신 어르신 식사 구독</h3>
-        <p>자녀가 구독하고 부모님께 따뜻한 한 끼와 영양을 챙겨 드리는 서비스예요. 구독경제 흐름을 분석해 3단계 요금제를 설계했어요.</p>
-      </div>
-      <div class="project p-lilac">
-        <span class="kind">학습공동체</span>
-        <h3>딥코봇 · AI 챗봇 개발 프로젝트</h3>
-        <p>다른 전공 친구들과 팀을 이뤄 자율주행 딥러닝 키트를 다뤄 보고, AI 챗봇 개발 프로젝트에도 참여했어요.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="card">
-    <h2><span class="dot" style="background: var(--lilac)"></span>요즘 공부하고 있어요</h2>
-    <ul class="steps">
-      <li><span class="badge t-mint">지금</span><p>Python으로 기초 데이터 분석을 익히고, ADsP(데이터분석 준전문가)를 독학으로 준비하고 있어요.</p></li>
-      <li><span class="badge t-sky">다음</span><p>SQL과 Java를 배우고 SQLD에 도전한 뒤, DACON·Kaggle 같은 데이터 대회에도 나가 보고 싶어요.</p></li>
-      <li><span class="badge t-peach">고학년</span><p>경영정보학부–소프트웨어학과 융합과정에서 데이터마이닝과 비즈니스 인텔리전스를 깊이 공부할 계획이에요.</p></li>
+    <ul class="manual">
+      <li>
+        <span class="me">"왜?"를 자주 물어요</span>
+        <p class="tip">반대하는 게 아니라 문제를 정확히 이해하려는 거예요. <strong>누구의 어떤 불편인지</strong>부터 같이 맞추면 이후 진행이 빨라집니다.</p>
+      </li>
+      <li>
+        <span class="me">근거가 있으면 결정이 빨라요</span>
+        <p class="tip">의견을 낼 때 <strong>자료나 사례 하나</strong>를 함께 붙여 주시면 바로 판단할 수 있어요. 저도 그렇게 할게요.</p>
+      </li>
+      <li>
+        <span class="me">글로 정리된 걸 좋아해요</span>
+        <p class="tip">말로 정한 것도 <strong>한 줄이라도 기록</strong>해 두면 안심해요. 정리는 제가 먼저 맡아도 괜찮습니다.</p>
+      </li>
+      <li>
+        <span class="me">개발과 분석은 배우는 중이에요</span>
+        <p class="tip">Python이나 데이터 분석 파트는 <strong>옆에서 같이 해 보고 싶어요.</strong> 잘하시는 분이 계시면 많이 물어볼게요.</p>
+      </li>
     </ul>
   </section>
 
-  <section class="card closing">
-    <h2>함께해요</h2>
-    <p>아이디어를 이야기하는 것도, 같이 공모전에 나가는 것도, 데이터 공부를 같이 하는 것도 모두 좋아해요. 비슷한 관심사가 있다면 언제든 편하게 말 걸어 주세요!</p>
+  <section>
+    <div class="head">
+      <p class="label">TEAM RULES</p>
+      <h2>이렇게 해 보면 어떨까요</h2>
+      <p class="sub">제가 제안하는 팀 규칙이에요. 첫 회의 때 같이 고쳐서 정해요.</p>
+    </div>
+    <div class="rules">
+      <div class="rule"><span class="when">회의 직후</span><p>정한 것, 할 사람, 마감일을 세 줄로 단톡방에 남겨요.</p></div>
+      <div class="rule"><span class="when">마감 하루 전</span><p>완성이 아니어도 중간 결과를 공유해서 방향을 한 번 맞춰요.</p></div>
+      <div class="rule"><span class="when">막혔을 때</span><p>혼자 오래 붙잡지 말고 바로 말해요. 늦게 말하는 것보다 일찍 말하는 게 모두에게 좋아요.</p></div>
+    </div>
   </section>
 
-  <footer>경영대학 경영정보학부 · 서영</footer>
+  <section>
+    <div class="head">
+      <p class="label">TEAM PROJECTS</p>
+      <h2>지금까지 해 온 팀 프로젝트</h2>
+    </div>
+    <ul class="projects">
+      <li style="--dot: var(--peri)"><span class="kind">진행 중 · 팀 프로젝트</span><div><b>Konnect</b><span class="desc">나에게 맞는 활동과 참여 후기를 한곳에서 찾는 학생 커뮤니티</span></div></li>
+      <li style="--dot: var(--blush)"><span class="kind">아이디어톤</span><div><b>돈독</b><span class="desc">20대 1인 가구가 놓치는 '새는 돈'을 찾아 주는 손실관리 플랫폼</span></div></li>
+      <li style="--dot: var(--sage)"><span class="kind">아이디어 공모전</span><div><b>세이프박스</b><span class="desc">행동경제학을 활용한 청년 1인 가구 예산관리 앱</span></div></li>
+      <li style="--dot: var(--peri)"><span class="kind">창업 기획</span><div><b>안심한끼</b><span class="desc">자녀가 구독하고 혼자 계신 부모님께 식사를 보내는 서비스</span></div></li>
+      <li style="--dot: var(--blush)"><span class="kind">학습공동체</span><div><b>AI 챗봇 개발</b><span class="desc">타 전공 학생들과 함께한 딥코봇·챗봇 개발 프로젝트</span></div></li>
+    </ul>
+  </section>
+
+  <section class="ask">
+    <p class="label">FIRST MEETING</p>
+    <h2>첫 회의 때 서로 나눠요</h2>
+    <ul>
+      <li>각자 잘하는 것, 그리고 이번에 새로 해 보고 싶은 것</li>
+      <li>회의하기 편한 요일과 시간대, 대면과 비대면 중 어느 쪽이 좋은지</li>
+      <li>연락은 어디로 할지, 답장은 보통 언제쯤 가능한지</li>
+      <li>이번 프로젝트에서 각자 꼭 얻어 가고 싶은 것</li>
+    </ul>
+  </section>
+
+  <footer>
+    <span>경영대학 경영정보학부</span>
+  </footer>
 </main>
-</body>
 </html>
