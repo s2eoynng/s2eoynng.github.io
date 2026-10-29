@@ -1,1 +1,1 @@
-# s2eoynngi.github.io
+# s2eoynng.github.io
