@@ -1,3 +1,7 @@
 # Kiro 로컬 설정 (MCP 연결 정보, 개인 Notion 페이지 주소)
 .kiro/settings/mcp.json
 .kiro/steering/project-notes.md
+
+# 빌드 출력, 의존성
+dist/
+node_modules/
