@@ -122,6 +122,34 @@ h2 { font-family: var(--font-display); font-size: 26px; font-weight: 700; margin
 .ask li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 12px; font-size: 15px; }
 .ask li::before { content: ""; width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--peri-ink); margin-top: 7px; }
 
+/* 응원 한마디 (방명록) */
+.guestbook form { display: grid; gap: 12px; background: var(--paper); border: 1px solid var(--line); border-radius: 22px; padding: 22px; }
+.guestbook .field { display: grid; gap: 6px; }
+.guestbook label { font-family: var(--font-mono); font-size: 11px; letter-spacing: .14em; color: var(--muted); }
+.guestbook input, .guestbook textarea {
+  font-family: var(--font-body); font-size: 15px; color: var(--ink); background: var(--bg);
+  border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; width: 100%; box-sizing: border-box;
+}
+.guestbook textarea { resize: vertical; min-height: 72px; }
+.guestbook input:focus, .guestbook textarea:focus { outline: 2px solid var(--peri); outline-offset: 1px; border-color: var(--peri); }
+.guestbook .row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.guestbook button {
+  font-family: var(--font-body); font-weight: 700; font-size: 15px; color: #fff; background: var(--peri-ink);
+  border: 0; border-radius: 999px; padding: 10px 24px; cursor: pointer;
+}
+.guestbook button:disabled { opacity: .5; cursor: default; }
+.guestbook .note { margin: 0; font-size: 14px; color: var(--muted); }
+.guestbook .note.err { color: var(--blush-ink); }
+.guestbook .field .err-msg { font-size: 13px; color: var(--blush-ink); min-height: 1em; }
+.guestbook .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.gb-list { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
+.gb-list li { padding: 16px 0; border-bottom: 1px solid var(--line); display: grid; gap: 4px; }
+.gb-list .gb-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.gb-list .gb-name { font-family: var(--font-display); font-size: 16px; font-weight: 700; }
+.gb-list .gb-date { font-family: var(--font-mono); font-size: 11px; color: var(--muted); white-space: nowrap; }
+.gb-list .gb-msg { margin: 0; font-size: 15px; }
+.gb-state { color: var(--muted); font-size: 15px; padding: 16px 0; }
+
 footer {
   border-top: 1px solid var(--line); padding-top: 24px; display: flex; flex-wrap: wrap;
   justify-content: space-between; align-items: baseline; gap: 10px;
@@ -226,8 +254,174 @@ footer span { color: var(--muted); font-size: 14px; }
     </ul>
   </section>
 
+  <section class="guestbook">
+    <div class="head">
+      <p class="label">GUESTBOOK</p>
+      <h2>응원 한마디</h2>
+      <p class="sub">포트폴리오를 보고 떠오른 짧은 응원이나 궁금한 점을 남겨 주세요. 남긴 글은 바로 아래에 표시돼요.</p>
+    </div>
+
+    <form id="gb-form" autocomplete="off">
+      <div class="field">
+        <label for="gb-nickname">별명</label>
+        <input id="gb-nickname" name="nickname" type="text" minlength="2" maxlength="12" required placeholder="별명 (2~12자)">
+        <span class="err-msg" id="gb-nickname-err" aria-live="polite"></span>
+      </div>
+      <div class="field">
+        <label for="gb-message">한 줄 메시지</label>
+        <textarea id="gb-message" name="message" maxlength="100" required placeholder="한 줄 메시지 (1~100자)"></textarea>
+        <span class="err-msg" id="gb-message-err" aria-live="polite"></span>
+      </div>
+      <div class="field hp" aria-hidden="true">
+        <label for="gb-website">웹사이트 (입력하지 마세요)</label>
+        <input id="gb-website" name="website" type="text" tabindex="-1" autocomplete="off">
+      </div>
+      <div class="row">
+        <button type="submit" id="gb-submit">등록</button>
+        <p class="note" id="gb-note" aria-live="polite"></p>
+      </div>
+    </form>
+
+    <ul class="gb-list" id="gb-list" aria-label="최근 응원 글"></ul>
+    <p class="gb-state" id="gb-state">불러오는 중…</p>
+  </section>
+
   <footer>
     <span>경영대학 경영정보학부</span>
   </footer>
 </main>
+
+<script>
+(function () {
+  // Supabase 연결 정보 — anon 키는 공개해도 되는 값 (RLS로 접근 제한)
+  var SUPABASE_URL = "https://qjjpvvuhygksdulygimd.supabase.co";
+  var SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFqanB2dnVoeWdrc2R1bHlnaW1kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTM2MDI3OTEsImV4cCI6MjEwOTE3ODc5MX0.oZHKsB2iiMhUx_bngRBWYOeT4Ka9AUstVU52VLbk4n8";
+  var REST = SUPABASE_URL + "/rest/v1/entries";
+  var HEADERS = { apikey: SUPABASE_ANON_KEY, Authorization: "Bearer " + SUPABASE_ANON_KEY };
+
+  // 검증 규칙 (브라우저 쪽) — 서버(DB)에도 같은 제약을 건다
+  var NICK_MIN = 2, NICK_MAX = 12;
+  var MSG_MIN = 1, MSG_MAX = 100;
+
+  var form = document.getElementById("gb-form");
+  var nicknameEl = document.getElementById("gb-nickname");
+  var messageEl = document.getElementById("gb-message");
+  var websiteEl = document.getElementById("gb-website");
+  var submitBtn = document.getElementById("gb-submit");
+  var noteEl = document.getElementById("gb-note");
+  var nickErrEl = document.getElementById("gb-nickname-err");
+  var msgErrEl = document.getElementById("gb-message-err");
+  var listEl = document.getElementById("gb-list");
+  var stateEl = document.getElementById("gb-state");
+
+  function setNote(text, isError) {
+    noteEl.textContent = text || "";
+    noteEl.className = "note" + (isError ? " err" : "");
+  }
+
+  function formatDate(iso) {
+    try {
+      var d = new Date(iso);
+      return d.getFullYear() + "." +
+        String(d.getMonth() + 1).padStart(2, "0") + "." +
+        String(d.getDate()).padStart(2, "0");
+    } catch (e) { return ""; }
+  }
+
+  function renderList(rows) {
+    listEl.innerHTML = "";
+    if (!rows || rows.length === 0) {
+      stateEl.textContent = "아직 남긴 응원 글이 없어요. 첫 글을 남겨 주세요!";
+      stateEl.style.display = "";
+      return;
+    }
+    stateEl.style.display = "none";
+    rows.forEach(function (row) {
+      var li = document.createElement("li");
+      var head = document.createElement("div");
+      head.className = "gb-head";
+      var name = document.createElement("span");
+      name.className = "gb-name";
+      name.textContent = row.nickname;           // textContent: HTML 실행 방지
+      var date = document.createElement("span");
+      date.className = "gb-date";
+      date.textContent = formatDate(row.created_at);
+      head.appendChild(name);
+      head.appendChild(date);
+      var msg = document.createElement("p");
+      msg.className = "gb-msg";
+      msg.textContent = row.message;             // textContent: HTML 실행 방지
+      li.appendChild(head);
+      li.appendChild(msg);
+      listEl.appendChild(li);
+    });
+  }
+
+  function loadEntries() {
+    stateEl.style.display = "";
+    stateEl.textContent = "불러오는 중…";
+    var url = REST + "?select=nickname,message,created_at&order=created_at.desc&limit=30";
+    fetch(url, { headers: HEADERS })
+      .then(function (res) {
+        if (!res.ok) throw new Error("load failed: " + res.status);
+        return res.json();
+      })
+      .then(renderList)
+      .catch(function () {
+        stateEl.style.display = "";
+        stateEl.textContent = "목록을 불러오지 못했어요";
+      });
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    // 허니팟: 값이 있으면 봇으로 보고 조용히 무시
+    if (websiteEl.value.trim() !== "") return;
+
+    nickErrEl.textContent = "";
+    msgErrEl.textContent = "";
+    setNote("");
+
+    var nickname = nicknameEl.value.trim();
+    var message = messageEl.value.trim();
+    var valid = true;
+    if (nickname.length < NICK_MIN || nickname.length > NICK_MAX) {
+      nickErrEl.textContent = "별명을 " + NICK_MIN + "~" + NICK_MAX + "자로 입력해 주세요.";
+      valid = false;
+    }
+    if (message.length < MSG_MIN || message.length > MSG_MAX) {
+      msgErrEl.textContent = "메시지를 " + MSG_MIN + "~" + MSG_MAX + "자로 입력해 주세요.";
+      valid = false;
+    }
+    if (!valid) return;
+
+    submitBtn.disabled = true;
+    setNote("등록하는 중…");
+
+    fetch(REST, {
+      method: "POST",
+      headers: Object.assign({}, HEADERS, {
+        "Content-Type": "application/json",
+        Prefer: "return=representation"   // 저장된 행을 돌려받아 목록을 바로 갱신
+      }),
+      body: JSON.stringify({ nickname: nickname, message: message })
+    })
+      .then(function (res) {
+        if (!res.ok) throw new Error("insert failed: " + res.status);
+        form.reset();
+        setNote("등록됐어요. 고마워요!");
+        loadEntries();   // 즉시 노출: 방금 등록한 글을 포함해 다시 불러옴
+      })
+      .catch(function () {
+        setNote("지금은 저장하지 못했어요. 다시 시도해 주세요.", true);
+      })
+      .finally(function () {
+        submitBtn.disabled = false;
+      });
+  });
+
+  loadEntries();
+})();
+</script>
 </html>

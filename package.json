@@ -1,0 +1,9 @@
+{
+  "name": "s2eoynng-homepage",
+  "version": "1.0.0",
+  "private": true,
+  "description": "임서영 소개 페이지 — 정적 사이트",
+  "scripts": {
+    "build": "node scripts/build.mjs"
+  }
+}
