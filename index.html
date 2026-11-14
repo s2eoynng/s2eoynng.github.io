@@ -113,6 +113,7 @@ h2 { font-family: var(--font-display); font-size: 26px; font-weight: 700; margin
 .projects .kind::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--dot); flex: none; }
 .projects b { font-family: var(--font-display); font-size: 17px; margin-right: 8px; }
 .projects span.desc { font-size: 14px; color: var(--muted); }
+.projects .proj-role { margin: 6px 0 0; font-size: 14px; color: var(--ink); }
 @media (max-width: 560px) { .projects li { grid-template-columns: minmax(0, 1fr); } }
 
 /* 첫 회의 */
@@ -174,9 +175,9 @@ footer span { color: var(--muted); font-size: 14px; }
 
   <dl class="glance" aria-label="한눈에 보는 서영">
     <div><dt>소속</dt><dd>경영대학 경영정보학부</dd></div>
-    <div><dt>맡고 싶은 일</dt><dd>기획 · 리서치</dd></div>
-    <div><dt>지금 공부 중</dt><dd>Python · ADsP</dd></div>
-    <div><dt>다음 목표</dt><dd>SQL · SQLD</dd></div>
+    <div><dt>맡고 싶은 일</dt><dd>데이터 분석</dd></div>
+    <div><dt>지금 공부 중</dt><dd>컴퓨터 활용 능력 2급 · SQLD</dd></div>
+    <div><dt>다음 목표</dt><dd>ADsP · SQL</dd></div>
   </dl>
 
   <section>
@@ -235,11 +236,9 @@ footer span { color: var(--muted); font-size: 14px; }
       <h2>지금까지 해 온 팀 프로젝트</h2>
     </div>
     <ul class="projects">
-      <li style="--dot: var(--peri)"><span class="kind">진행 중 · 팀 프로젝트</span><div><b>Konnect</b><span class="desc">나에게 맞는 활동과 참여 후기를 한곳에서 찾는 학생 커뮤니티</span></div></li>
-      <li style="--dot: var(--blush)"><span class="kind">아이디어톤</span><div><b>돈독</b><span class="desc">20대 1인 가구가 놓치는 '새는 돈'을 찾아 주는 손실관리 플랫폼</span></div></li>
-      <li style="--dot: var(--sage)"><span class="kind">아이디어 공모전</span><div><b>세이프박스</b><span class="desc">행동경제학을 활용한 청년 1인 가구 예산관리 앱</span></div></li>
-      <li style="--dot: var(--peri)"><span class="kind">창업 기획</span><div><b>안심한끼</b><span class="desc">자녀가 구독하고 혼자 계신 부모님께 식사를 보내는 서비스</span></div></li>
-      <li style="--dot: var(--blush)"><span class="kind">학습공동체</span><div><b>AI 챗봇 개발</b><span class="desc">타 전공 학생들과 함께한 딥코봇·챗봇 개발 프로젝트</span></div></li>
+      <li style="--dot: var(--peri)"><span class="kind">진행 중 · 팀 프로젝트</span><div><b>Konnect</b><span class="desc">나에게 맞는 활동과 참여 후기를 한곳에서 찾는 학생 커뮤니티</span><p class="proj-role">맡은 역할 · 기획, UX/UI, 디자인, 프론트엔드</p></div></li>
+      <li style="--dot: var(--blush)"><span class="kind">아이디어톤</span><div><b>돈독</b><span class="desc">20대 1인 가구가 놓치는 '새는 돈'을 찾아 주는 손실관리 플랫폼</span><p class="proj-role">맡은 역할 · 기획, UX/UI, 디자인</p></div></li>
+      <li style="--dot: var(--blush)"><span class="kind">학습공동체</span><div><b>AI 챗봇 개발</b><span class="desc">타 전공 학생들과 함께한 딥코봇·챗봇 개발 프로젝트</span><p class="proj-role">맡은 역할 · 기획, 데이터 수집</p></div></li>
     </ul>
   </section>
 
