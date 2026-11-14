@@ -108,7 +108,7 @@ h2 { font-family: var(--font-display); font-size: 26px; font-weight: 700; margin
 
 /* 프로젝트 */
 .projects { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
-.projects li { display: grid; grid-template-columns: 9.5em minmax(0, 1fr); gap: 4px 20px; padding: 14px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+.projects li { display: grid; grid-template-columns: 10.5em minmax(0, 1fr); gap: 4px 20px; padding: 14px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
 .projects .kind { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 8px; }
 .projects .kind::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--dot); flex: none; }
 .projects b { font-family: var(--font-display); font-size: 17px; margin-right: 8px; }
@@ -155,8 +155,14 @@ dialog.pd::backdrop { background: rgba(20, 22, 31, .55); }
   display: block; box-sizing: border-box; max-width: 100%; max-height: min(70vh, 560px); width: auto; height: auto;
   border-radius: 14px; border: 1px solid var(--line); background: var(--bg);
 }
-.pd-gallery figcaption { font-size: 13px; color: var(--muted); }
-.pd-empty { margin: 0; padding: 18px; border: 1px dashed var(--line); border-radius: 14px; color: var(--muted); font-size: 14px; text-align: center; }
+.pd-gallery figcaption { font-size: 13px; color: var(--muted); text-align: center; }
+.pd-gallery a { display: block; max-width: 100%; cursor: zoom-in; }
+.pd-gallery a:focus-visible { outline: none; }
+.pd-gallery a:focus-visible img { outline: 2px solid var(--peri-ink); outline-offset: 2px; }
+/* 휴대폰 화면 캡처: 여러 열로 놓는다. 열의 최소 폭은 --shot으로 바꾼다 */
+.pd-gallery.screens { grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--shot, 260px)), 1fr)); align-items: start; }
+.pd-gallery.screens figure { justify-items: stretch; }
+.pd-gallery.screens img { width: 100%; max-height: none; }
 
 /* 응원 한마디 (방명록) */
 .guestbook form { display: grid; gap: 12px; background: var(--paper); border: 1px solid var(--line); border-radius: 22px; padding: 22px; }
@@ -228,12 +234,12 @@ footer a { color: var(--peri-ink); }
         <div>
           <b>Konnect</b><span class="desc">나에게 맞는 활동과 참여 후기를 한곳에서 찾는 학생 커뮤니티</span>
           <p class="proj-role">맡은 역할 · 기획, UX/UI, 디자인, 프론트엔드</p>
-          <p class="proj-award">성과 · Vibe Coding Challenge 대상 수상 (MIS HomeComing Day, 2026.11.06)</p>
+          <p class="proj-award">성과 · Vibe Coding Challenge 대상 수상 (MIS HomeComing Day)</p>
           <button type="button" class="proj-more" data-detail="detail-konnect" aria-haspopup="dialog">자세히 보기</button>
         </div>
       </li>
       <li style="--dot: var(--blush)">
-        <span class="kind">아이디어톤</span>
+        <span class="kind">경영대학 아이디어 콜라톤</span>
         <div>
           <b>돈독</b><span class="desc">20대 1인 가구가 놓치는 '새는 돈'을 찾아 주는 손실관리 플랫폼</span>
           <p class="proj-role">맡은 역할 · 기획, UX/UI, 디자인</p>
@@ -243,7 +249,7 @@ footer a { color: var(--peri-ink); }
       <li style="--dot: var(--blush)">
         <span class="kind">학습공동체</span>
         <div>
-          <b>AI 챗봇 개발</b><span class="desc">타 전공 학생들과 함께한 딥코봇·챗봇 개발 프로젝트</span>
+          <b>대화형 기후 가이드 챗봇 EcoTalk</b><span class="desc">타 전공 학생들과 함께한 딥코봇·챗봇 개발 프로젝트</span>
           <p class="proj-role">맡은 역할 · 기획, 데이터 수집, 발표</p>
           <p class="proj-award">성과 · 3등 수상 (HUSS 글로벌공생사업단 인공지능 학습공동체 활동)</p>
           <button type="button" class="proj-more" data-detail="detail-chatbot" aria-haspopup="dialog">자세히 보기</button>
@@ -252,7 +258,7 @@ footer a { color: var(--peri-ink); }
     </ul>
 
     <!-- 자세히 보기 창. 이미지 넣는 법: images 폴더에 파일을 넣고(이름은 영문 소문자·숫자·-·_ 만),
-         .pd-gallery 안의 예시 주석처럼 figure 한 줄을 추가한 뒤 안내 문단(.pd-empty)을 지운다. -->
+         .pd-gallery 안에 figure 한 줄을 추가한다. 휴대폰 화면 캡처는 class="pd-gallery screens"로 여러 열에 놓는다. -->
     <dialog class="pd" id="detail-konnect" aria-labelledby="detail-konnect-title">
       <div class="pd-inner">
         <div class="pd-head">
@@ -267,7 +273,7 @@ footer a { color: var(--peri-ink); }
           <div><dt>기간</dt><dd>2026.10.06 ~ 2026.11.06</dd></div>
           <div><dt>인원</dt><dd>4명</dd></div>
           <div><dt>맡은 역할</dt><dd>기획, UX/UI, 디자인, 프론트엔드</dd></div>
-          <div><dt>성과</dt><dd>Vibe Coding Challenge 대상 수상 (MIS HomeComing Day, 2026.11.06)</dd></div>
+          <div><dt>성과</dt><dd>Vibe Coding Challenge 대상 수상 (MIS HomeComing Day)</dd></div>
         </dl>
         <h4>배경</h4>
         <p>경영정보학부 동문 DB는 2009년 마지막으로 최신화되었고, 그 이후로는 교수/학생회/학회별로 각각 소규모로 관리되고 있음을 파악했다. 이로 인해, 학부 차원에서 동문의 현황 파악이 어렵고, 1년에 한 번 대규모로 진행되는 홈커밍데이에서 충분한 네트워킹 및 행사 기획에 한계가 있다는 것을 해결하기 위해 Konnect를 기획하였다.</p>
@@ -278,9 +284,10 @@ footer a { color: var(--peri-ink); }
           <li>대면 인터뷰로 사용성 테스트</li>
         </ul>
         <h4>화면</h4>
-        <div class="pd-gallery">
-          <!-- <figure><img src="images/konnect-1.png" alt="Konnect 메인 화면" loading="lazy"><figcaption>메인 화면</figcaption></figure> -->
-          <p class="pd-empty">[입력 필요: 화면 이미지 2~4장. 예) images/konnect-1.png]</p>
+        <div class="pd-gallery screens" style="--shot: 170px">
+          <figure><a href="images/konnect-1.jpg" target="_blank" rel="noopener"><img src="images/konnect-1.jpg" width="1206" height="2467" alt="Konnect 홈 화면. 경영정보학부 홈커밍데이 배너, 프로그램 검색창, 분류별 프로그램 카드가 보인다." loading="lazy" decoding="async"></a><figcaption>홈 · 행사 배너와 프로그램 목록</figcaption></figure>
+          <figure><a href="images/konnect-2.jpg" target="_blank" rel="noopener"><img src="images/konnect-2.jpg" width="1206" height="2458" alt="Konnect 캘린더 화면. 2026년 11월 달력에 학부 활동 일정이 표시되어 있다." loading="lazy" decoding="async"></a><figcaption>캘린더 · 월별 활동 일정</figcaption></figure>
+          <figure><a href="images/konnect-3.jpg" target="_blank" rel="noopener"><img src="images/konnect-3.jpg" width="1206" height="2462" alt="Konnect 연락처 화면. 학회 점수 랭킹과 학번별 재학생 연락처 목록이 보인다." loading="lazy" decoding="async"></a><figcaption>연락처 · 학회 랭킹과 재학생·졸업생 목록</figcaption></figure>
         </div>
       </div>
     </dialog>
@@ -289,14 +296,14 @@ footer a { color: var(--peri-ink); }
       <div class="pd-inner">
         <div class="pd-head">
           <div>
-            <p class="label">아이디어톤</p>
+            <p class="label">경영대학 아이디어 콜라톤</p>
             <h3 id="detail-dondok-title">돈독</h3>
           </div>
           <form method="dialog"><button class="pd-close" aria-label="닫기">&times;</button></form>
         </div>
         <p class="pd-summary">20대 1인 가구가 놓치는 '새는 돈'을 찾아 주는 손실관리 플랫폼</p>
         <dl class="pd-facts">
-          <div><dt>기간</dt><dd>2026.02.20</dd></div>
+          <div><dt>기간</dt><dd>2026.06.20</dd></div>
           <div><dt>인원</dt><dd>4명</dd></div>
           <div><dt>맡은 역할</dt><dd>기획, UX/UI, 디자인</dd></div>
         </dl>
@@ -313,10 +320,10 @@ footer a { color: var(--peri-ink); }
           <li>소득/소비 지출 비교 데이터</li>
           <li>청년 1인 가구 생활비 데이터</li>
         </ul>
-        <h4>화면</h4>
+        <h4>현장 사진</h4>
         <div class="pd-gallery">
-          <!-- <figure><img src="images/dondok-1.png" alt="돈독 메인 화면" loading="lazy"><figcaption>메인 화면</figcaption></figure> -->
-          <p class="pd-empty">[입력 필요: 화면 이미지 2~4장. 예) images/dondok-1.png]</p>
+          <figure><a href="images/dondok-1.jpg" target="_blank" rel="noopener"><img src="images/dondok-1.jpg" width="1600" height="1200" alt="행사장 무대 화면에 2026 IDEA COLLATHON, 국민대학교 경영대학 아이디어 콜라톤이라고 띄워져 있다." loading="lazy" decoding="async"></a><figcaption>2026 경영대학 아이디어 콜라톤</figcaption></figure>
+          <figure><a href="images/dondok-2.jpg" target="_blank" rel="noopener"><img src="images/dondok-2.jpg" width="1600" height="900" alt="아이디어 콜라톤 행사장. 무대 화면에 돈독 발표 자료와 앱 화면이 띄워져 있다." loading="lazy" decoding="async"></a><figcaption>돈독 발표 현장</figcaption></figure>
         </div>
       </div>
     </dialog>
@@ -326,7 +333,7 @@ footer a { color: var(--peri-ink); }
         <div class="pd-head">
           <div>
             <p class="label">학습공동체</p>
-            <h3 id="detail-chatbot-title">AI 챗봇 개발</h3>
+            <h3 id="detail-chatbot-title">대화형 기후 가이드 챗봇 EcoTalk</h3>
           </div>
           <form method="dialog"><button class="pd-close" aria-label="닫기">&times;</button></form>
         </div>
@@ -349,12 +356,16 @@ footer a { color: var(--peri-ink); }
         <h4>제가 한 일</h4>
         <ul>
           <li>기획</li>
+          <li>데이터 수집</li>
           <li>Google AI Studio를 이용하여 Gemini API 연동</li>
+          <li>발표</li>
         </ul>
         <h4>화면</h4>
-        <div class="pd-gallery">
-          <!-- <figure><img src="images/chatbot-1.png" alt="챗봇 대화 화면" loading="lazy"><figcaption>대화 화면</figcaption></figure> -->
-          <p class="pd-empty">[입력 필요: 화면 이미지 2~4장. 예) images/chatbot-1.png]</p>
+        <div class="pd-gallery screens">
+          <figure><a href="images/chatbot-1.jpg" target="_blank" rel="noopener"><img src="images/chatbot-1.jpg" width="1206" height="1733" alt="EcoTalk AI 어시스턴트 대화 화면. 답변 말풍선, 추천 질문 버튼, 입력창이 보인다." loading="lazy" decoding="async"></a><figcaption>AI 챗봇 어시스턴트</figcaption></figure>
+          <figure><a href="images/chatbot-2.jpg" target="_blank" rel="noopener"><img src="images/chatbot-2.jpg" width="1206" height="1738" alt="에코 탄소발자국 계산기 화면. 교통수단, 이동 거리, 육류 식습관, 전기·가스 요금, 분리배출 정도를 입력한다." loading="lazy" decoding="async"></a><figcaption>탄소발자국 계산기</figcaption></figure>
+          <figure><a href="images/chatbot-3.jpg" target="_blank" rel="noopener"><img src="images/chatbot-3.jpg" width="1206" height="1743" alt="탄소 성적표 화면. 연간 탄소 배출량 5.85톤, B등급, 1인당 연평균 배출량 대비 47%가 표시되어 있다." loading="lazy" decoding="async"></a><figcaption>계산 결과 · 탄소 성적표</figcaption></figure>
+          <figure><a href="images/chatbot-4.jpg" target="_blank" rel="noopener"><img src="images/chatbot-4.jpg" width="1206" height="1720" alt="환경 상식 팩트 가이드 화면. 청바지 한 벌을 만드는 데 물 7,000리터가 든다는 카드가 보인다." loading="lazy" decoding="async"></a><figcaption>환경 상식 팩트 가이드</figcaption></figure>
         </div>
       </div>
     </dialog>
@@ -366,7 +377,7 @@ footer a { color: var(--peri-ink); }
       <h2>이런 일을 할 수 있어요</h2>
     </div>
     <div class="roles">
-      <div class="role r3"><span class="k">DATA</span><b>데이터 수집 · 분석</b><p>AI 챗봇 프로젝트에서 데이터 수집을 맡았어요. 지금은 SQLD를 준비하며 SQL로 데이터를 다루는 법을 익히고 있습니다.</p></div>
+      <div class="role r3"><span class="k">DATA</span><b>데이터 수집 · 분석</b><p>돈독 기획에 1인 가구 비중 추이, 소득/소비 지출 비교, 청년 1인 가구 생활비 데이터를 활용했어요. EcoTalk에서는 데이터 수집을 맡았고, 지금은 SQLD를 준비하며 SQL로 데이터를 다루는 법을 익히고 있습니다.</p></div>
       <div class="role r1"><span class="k">PROBLEM</span><b>문제 정의 · 사용자 조사</b><p>누가 왜 불편한지 정리하고, 설문을 설계해 근거를 모읍니다.</p></div>
       <div class="role r2"><span class="k">PLAN</span><b>서비스 기획 · 정보 구조</b><p>기획서, 기능 정보 구조도, 화면 목업으로 아이디어를 눈에 보이게 만듭니다.</p></div>
       <div class="role r3"><span class="k">CONNECT</span><b>정리 · 공유</b><p>회의에서 나온 이야기를 문서로 묶어 모두가 같은 그림을 보게 합니다.</p></div>
