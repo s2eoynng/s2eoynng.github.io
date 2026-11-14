@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>서영과 일하는 법</title>
-<meta name="description" content="국민대학교 경영정보학부 26학번 임서영을 소개하는 한 장짜리 사용설명서. 맡을 수 있는 일, 함께 일하는 법, 팀 규칙, 지금까지의 팀 프로젝트를 정리했어요.">
+<title>임서영 | 데이터 분석 포트폴리오</title>
+<meta name="description" content="국민대학교 경영정보학부 26학번 임서영의 포트폴리오. 데이터 분석 일을 준비하며 참여한 팀 프로젝트의 역할과 성과, 일하는 방식을 정리했어요.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
 <style>
-/* Layout: 처음 만나는 팀원을 위한 사용설명서 — 인사(히어로) → 한눈에 보는 서영 → 이런 일을 맡을게요 → 저와 일하는 법(사용설명서 목록) → 제안하는 팀 규칙 → 함께한 팀 프로젝트 → 첫 회의 때 나눠요 → 서명
+/* Layout: 기업 담당자를 위한 한 장짜리 포트폴리오 — 인사(히어로) → 한눈에 보는 서영 → 팀 프로젝트(역할·성과·자세히 보기) → 할 수 있는 일 → 일하는 방식 → 협업 방식 → 응원 한마디 → 서명·연락처
    Brand idea: "잇다" — 두 점을 잇는 선. 더스티 파스텔(페리윙클·세이지·블러시) + 짙은 슬레이트 잉크 */
 :root {
   --bg: #f6f7fb;
@@ -77,7 +77,7 @@ h2 { font-family: var(--font-display); font-size: 26px; font-weight: 700; margin
 .head p.sub { margin: 0; color: var(--muted); font-size: 15px; }
 
 /* 맡을 일 */
-.roles { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
+.roles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 12px; }
 .role { border-radius: 24px; padding: 22px; display: grid; gap: 8px; align-content: start; min-width: 0; }
 .role .k { font-family: var(--font-mono); font-size: 12px; letter-spacing: .14em; }
 .role b { font-family: var(--font-display); font-size: 20px; line-height: 1.4; }
@@ -114,14 +114,49 @@ h2 { font-family: var(--font-display); font-size: 26px; font-weight: 700; margin
 .projects b { font-family: var(--font-display); font-size: 17px; margin-right: 8px; }
 .projects span.desc { font-size: 14px; color: var(--muted); }
 .projects .proj-role { margin: 6px 0 0; font-size: 14px; color: var(--ink); }
+.projects .proj-award { margin: 4px 0 0; font-size: 14px; font-weight: 500; color: var(--peri-ink); }
+.projects .proj-more {
+  margin-top: 10px; font-family: var(--font-body); font-size: 13px; font-weight: 500; color: var(--peri-ink);
+  background: transparent; border: 1px solid currentColor; border-radius: 999px; padding: 4px 14px; cursor: pointer;
+}
+.projects .proj-more:hover { background: var(--peri-soft); }
+.projects .proj-more:focus-visible { outline: 2px solid var(--peri-ink); outline-offset: 2px; }
 @media (max-width: 560px) { .projects li { grid-template-columns: minmax(0, 1fr); } }
 
-/* 첫 회의 */
-.ask { background: var(--peri-soft); border-radius: 24px; padding: 26px 24px; display: grid; gap: 14px; }
-.ask h2 { color: var(--peri-ink); }
-.ask ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
-.ask li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 12px; font-size: 15px; }
-.ask li::before { content: ""; width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--peri-ink); margin-top: 7px; }
+/* 프로젝트 자세히 보기 (dialog) */
+html { scrollbar-gutter: stable; }
+html:has(dialog.pd[open]) { overflow: hidden; }
+dialog.pd {
+  padding: 0; border: 1px solid var(--line); border-radius: 22px; background: var(--paper); color: var(--ink);
+  width: min(680px, calc(100vw - 24px)); max-width: none;
+  max-height: calc(100vh - 32px); max-height: calc(100dvh - 32px);
+  overflow: auto; overscroll-behavior: contain; box-shadow: 0 24px 64px rgba(20, 22, 31, .28);
+}
+dialog.pd::backdrop { background: rgba(20, 22, 31, .55); }
+.pd-inner { padding: 22px 24px 26px; display: grid; gap: 16px; }
+.pd-head { display: flex; justify-content: space-between; align-items: start; gap: 12px; }
+.pd-head h3 { font-family: var(--font-display); font-size: 24px; margin: 2px 0 0; line-height: 1.35; }
+.pd-close {
+  flex: none; width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--line);
+  background: var(--bg); color: var(--ink); font-size: 20px; line-height: 1; cursor: pointer;
+}
+.pd-close:focus-visible { outline: 2px solid var(--peri-ink); outline-offset: 2px; }
+.pd-summary { margin: 0; color: var(--muted); font-size: 15px; }
+.pd-facts { margin: 0; display: grid; border-top: 1px solid var(--line); }
+.pd-facts div { display: grid; grid-template-columns: 6.5em minmax(0, 1fr); gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.pd-facts dt { font-family: var(--font-mono); font-size: 11px; letter-spacing: .14em; color: var(--muted); padding-top: 3px; }
+.pd-facts dd { margin: 0; font-size: 15px; }
+.pd h4 { font-family: var(--font-display); font-size: 17px; margin: 6px 0 -6px; }
+.pd-inner > p, .pd-inner > ul { margin: 0; font-size: 15px; }
+.pd-inner > ul { padding-left: 1.2em; }
+.pd-gallery { display: grid; gap: 14px; }
+.pd-gallery figure { margin: 0; display: grid; gap: 6px; justify-items: center; }
+.pd-gallery img {
+  display: block; box-sizing: border-box; max-width: 100%; max-height: min(70vh, 560px); width: auto; height: auto;
+  border-radius: 14px; border: 1px solid var(--line); background: var(--bg);
+}
+.pd-gallery figcaption { font-size: 13px; color: var(--muted); }
+.pd-empty { margin: 0; padding: 18px; border: 1px dashed var(--line); border-radius: 14px; color: var(--muted); font-size: 14px; text-align: center; }
 
 /* 응원 한마디 (방명록) */
 .guestbook form { display: grid; gap: 12px; background: var(--paper); border: 1px solid var(--line); border-radius: 22px; padding: 22px; }
@@ -155,8 +190,9 @@ footer {
   border-top: 1px solid var(--line); padding-top: 24px; display: flex; flex-wrap: wrap;
   justify-content: space-between; align-items: baseline; gap: 10px;
 }
-footer .sign { font-family: var(--font-display); font-size: 20px; }
+footer .sign { font-family: var(--font-display); font-size: 20px; color: var(--ink); }
 footer span { color: var(--muted); font-size: 14px; }
+footer a { color: var(--peri-ink); }
 </style>
 
 <main class="wrap">
@@ -168,24 +204,169 @@ footer span { color: var(--muted); font-size: 14px; }
       <circle class="d1" cx="14" cy="32" r="5"></circle>
       <circle class="d2" cx="38" cy="32" r="5"></circle>
     </svg>
-    <p class="tagline">HELLO, TEAM · 처음 뵙겠습니다</p>
+    <p class="tagline">PORTFOLIO · 데이터 분석</p>
     <h1>국민대학교 경영정보학부<br>26학번 <em>임서영</em></h1>
-    <p class="lede">경영정보학부에서 AI·데이터 서비스 기획을 공부하고 있어요. 같이 일하기 전에 저를 빨리 파악하실 수 있도록 한 장으로 정리했습니다.</p>
+    <p class="lede">데이터 분석 일을 하고 싶어요. 팀 프로젝트에서 기획, UX/UI, 데이터 수집을 맡아 왔고, 프로젝트마다 맡은 역할과 성과를 아래에 정리했습니다.</p>
   </header>
 
   <dl class="glance" aria-label="한눈에 보는 서영">
     <div><dt>소속</dt><dd>경영대학 경영정보학부</dd></div>
-    <div><dt>맡고 싶은 일</dt><dd>데이터 분석</dd></div>
-    <div><dt>지금 공부 중</dt><dd>컴퓨터 활용 능력 2급 · SQLD</dd></div>
+    <div><dt>희망 직무</dt><dd>데이터 분석</dd></div>
+    <div><dt>지금 공부 중</dt><dd>컴퓨터활용능력 2급 · SQLD</dd></div>
     <div><dt>다음 목표</dt><dd>ADsP · SQL</dd></div>
   </dl>
 
   <section>
     <div class="head">
-      <p class="label">WHAT I CAN TAKE</p>
-      <h2>이런 일을 맡을 수 있어요</h2>
+      <p class="label">TEAM PROJECTS</p>
+      <h2>지금까지 해 온 팀 프로젝트</h2>
+      <p class="sub">프로젝트마다 맡은 역할과 성과를 적었어요. '자세히 보기'를 누르면 과정과 화면을 볼 수 있어요.</p>
+    </div>
+    <ul class="projects">
+      <li style="--dot: var(--peri)">
+        <span class="kind">진행 중 · 팀 프로젝트</span>
+        <div>
+          <b>Konnect</b><span class="desc">나에게 맞는 활동과 참여 후기를 한곳에서 찾는 학생 커뮤니티</span>
+          <p class="proj-role">맡은 역할 · 기획, UX/UI, 디자인, 프론트엔드</p>
+          <p class="proj-award">성과 · Vibe Coding Challenge 대상 수상 (MIS HomeComing Day, 2026.11.06)</p>
+          <button type="button" class="proj-more" data-detail="detail-konnect" aria-haspopup="dialog">자세히 보기</button>
+        </div>
+      </li>
+      <li style="--dot: var(--blush)">
+        <span class="kind">아이디어톤</span>
+        <div>
+          <b>돈독</b><span class="desc">20대 1인 가구가 놓치는 '새는 돈'을 찾아 주는 손실관리 플랫폼</span>
+          <p class="proj-role">맡은 역할 · 기획, UX/UI, 디자인</p>
+          <button type="button" class="proj-more" data-detail="detail-dondok" aria-haspopup="dialog">자세히 보기</button>
+        </div>
+      </li>
+      <li style="--dot: var(--blush)">
+        <span class="kind">학습공동체</span>
+        <div>
+          <b>AI 챗봇 개발</b><span class="desc">타 전공 학생들과 함께한 딥코봇·챗봇 개발 프로젝트</span>
+          <p class="proj-role">맡은 역할 · 기획, 데이터 수집, 발표</p>
+          <p class="proj-award">성과 · 3등 수상 (HUSS 글로벌공생사업단 인공지능 학습공동체 활동)</p>
+          <button type="button" class="proj-more" data-detail="detail-chatbot" aria-haspopup="dialog">자세히 보기</button>
+        </div>
+      </li>
+    </ul>
+
+    <!-- 자세히 보기 창. 이미지 넣는 법: images 폴더에 파일을 넣고(이름은 영문 소문자·숫자·-·_ 만),
+         .pd-gallery 안의 예시 주석처럼 figure 한 줄을 추가한 뒤 안내 문단(.pd-empty)을 지운다. -->
+    <dialog class="pd" id="detail-konnect" aria-labelledby="detail-konnect-title">
+      <div class="pd-inner">
+        <div class="pd-head">
+          <div>
+            <p class="label">진행 중 · 팀 프로젝트</p>
+            <h3 id="detail-konnect-title">Konnect</h3>
+          </div>
+          <form method="dialog"><button class="pd-close" aria-label="닫기">&times;</button></form>
+        </div>
+        <p class="pd-summary">나에게 맞는 활동과 참여 후기를 한곳에서 찾는 학생 커뮤니티</p>
+        <dl class="pd-facts">
+          <div><dt>기간</dt><dd>2026.10.06 ~ 2026.11.06</dd></div>
+          <div><dt>인원</dt><dd>4명</dd></div>
+          <div><dt>맡은 역할</dt><dd>기획, UX/UI, 디자인, 프론트엔드</dd></div>
+          <div><dt>성과</dt><dd>Vibe Coding Challenge 대상 수상 (MIS HomeComing Day, 2026.11.06)</dd></div>
+        </dl>
+        <h4>배경</h4>
+        <p>경영정보학부 동문 DB는 2009년 마지막으로 최신화되었고, 그 이후로는 교수/학생회/학회별로 각각 소규모로 관리되고 있음을 파악했다. 이로 인해, 학부 차원에서 동문의 현황 파악이 어렵고, 1년에 한 번 대규모로 진행되는 홈커밍데이에서 충분한 네트워킹 및 행사 기획에 한계가 있다는 것을 해결하기 위해 Konnect를 기획하였다.</p>
+        <h4>제가 한 일</h4>
+        <ul>
+          <li>Visual Studio Code로 UX/UI 수정</li>
+          <li>Figma로 화면 설계</li>
+          <li>대면 인터뷰로 사용성 테스트</li>
+        </ul>
+        <h4>화면</h4>
+        <div class="pd-gallery">
+          <!-- <figure><img src="images/konnect-1.png" alt="Konnect 메인 화면" loading="lazy"><figcaption>메인 화면</figcaption></figure> -->
+          <p class="pd-empty">[입력 필요: 화면 이미지 2~4장. 예) images/konnect-1.png]</p>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="pd" id="detail-dondok" aria-labelledby="detail-dondok-title">
+      <div class="pd-inner">
+        <div class="pd-head">
+          <div>
+            <p class="label">아이디어톤</p>
+            <h3 id="detail-dondok-title">돈독</h3>
+          </div>
+          <form method="dialog"><button class="pd-close" aria-label="닫기">&times;</button></form>
+        </div>
+        <p class="pd-summary">20대 1인 가구가 놓치는 '새는 돈'을 찾아 주는 손실관리 플랫폼</p>
+        <dl class="pd-facts">
+          <div><dt>기간</dt><dd>2026.02.20</dd></div>
+          <div><dt>인원</dt><dd>4명</dd></div>
+          <div><dt>맡은 역할</dt><dd>기획, UX/UI, 디자인</dd></div>
+        </dl>
+        <h4>배경</h4>
+        <p>20대 1인 가구가 놓치는 '새는 돈'이 많다는 문제를 해결하기 위한 손실 관리 금융 플랫폼 기획</p>
+        <h4>제가 한 일</h4>
+        <ul>
+          <li>사업계획서 초안 작성</li>
+          <li>VibeCoding으로 UX/UI 디자인</li>
+        </ul>
+        <h4>데이터 활용</h4>
+        <ul>
+          <li>1인 가구 비중 추이 데이터</li>
+          <li>소득/소비 지출 비교 데이터</li>
+          <li>청년 1인 가구 생활비 데이터</li>
+        </ul>
+        <h4>화면</h4>
+        <div class="pd-gallery">
+          <!-- <figure><img src="images/dondok-1.png" alt="돈독 메인 화면" loading="lazy"><figcaption>메인 화면</figcaption></figure> -->
+          <p class="pd-empty">[입력 필요: 화면 이미지 2~4장. 예) images/dondok-1.png]</p>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="pd" id="detail-chatbot" aria-labelledby="detail-chatbot-title">
+      <div class="pd-inner">
+        <div class="pd-head">
+          <div>
+            <p class="label">학습공동체</p>
+            <h3 id="detail-chatbot-title">AI 챗봇 개발</h3>
+          </div>
+          <form method="dialog"><button class="pd-close" aria-label="닫기">&times;</button></form>
+        </div>
+        <p class="pd-summary">타 전공 학생들과 함께한 딥코봇·챗봇 개발 프로젝트</p>
+        <dl class="pd-facts">
+          <div><dt>기간</dt><dd>2026.05.27 ~ 2026.05.29</dd></div>
+          <div><dt>인원</dt><dd>5명</dd></div>
+          <div><dt>맡은 역할</dt><dd>기획, 데이터 수집, 발표</dd></div>
+          <div><dt>성과</dt><dd>3등 수상 (HUSS 글로벌공생사업단 인공지능 학습공동체 활동)</dd></div>
+        </dl>
+        <h4>배경</h4>
+        <p>환경에 관심은 있지만 어디서부터 시작해야 할지 막막한 현실 문제를 해결하기 위해 Gemini API를 기반으로 만든 대화형 기후 가이드를 제공하는 챗봇을 기획했다.</p>
+        <h4>주요 기능</h4>
+        <ul>
+          <li>AI 챗봇 어시스턴트</li>
+          <li>탄소발자국 계산기</li>
+          <li>오늘의 실천 약속</li>
+          <li>환경 상식 팩트 가이드</li>
+        </ul>
+        <h4>제가 한 일</h4>
+        <ul>
+          <li>기획</li>
+          <li>Google AI Studio를 이용하여 Gemini API 연동</li>
+        </ul>
+        <h4>화면</h4>
+        <div class="pd-gallery">
+          <!-- <figure><img src="images/chatbot-1.png" alt="챗봇 대화 화면" loading="lazy"><figcaption>대화 화면</figcaption></figure> -->
+          <p class="pd-empty">[입력 필요: 화면 이미지 2~4장. 예) images/chatbot-1.png]</p>
+        </div>
+      </div>
+    </dialog>
+  </section>
+
+  <section>
+    <div class="head">
+      <p class="label">WHAT I CAN DO</p>
+      <h2>이런 일을 할 수 있어요</h2>
     </div>
     <div class="roles">
+      <div class="role r3"><span class="k">DATA</span><b>데이터 수집 · 분석</b><p>AI 챗봇 프로젝트에서 데이터 수집을 맡았어요. 지금은 SQLD를 준비하며 SQL로 데이터를 다루는 법을 익히고 있습니다.</p></div>
       <div class="role r1"><span class="k">PROBLEM</span><b>문제 정의 · 사용자 조사</b><p>누가 왜 불편한지 정리하고, 설문을 설계해 근거를 모읍니다.</p></div>
       <div class="role r2"><span class="k">PLAN</span><b>서비스 기획 · 정보 구조</b><p>기획서, 기능 정보 구조도, 화면 목업으로 아이디어를 눈에 보이게 만듭니다.</p></div>
       <div class="role r3"><span class="k">CONNECT</span><b>정리 · 공유</b><p>회의에서 나온 이야기를 문서로 묶어 모두가 같은 그림을 보게 합니다.</p></div>
@@ -194,7 +375,7 @@ footer span { color: var(--muted); font-size: 14px; }
 
   <section>
     <div class="head">
-      <p class="label">USER MANUAL</p>
+      <p class="label">HOW I WORK</p>
       <h2>저와 일할 때 알아두면 좋은 것</h2>
     </div>
     <ul class="manual">
@@ -203,54 +384,31 @@ footer span { color: var(--muted); font-size: 14px; }
         <p class="tip">반대하는 게 아니라 문제를 정확히 이해하려는 거예요. <strong>누구의 어떤 불편인지</strong>부터 같이 맞추면 이후 진행이 빨라집니다.</p>
       </li>
       <li>
-        <span class="me">근거가 있으면 결정이 빨라요</span>
-        <p class="tip">의견을 낼 때 <strong>자료나 사례 하나</strong>를 함께 붙여 주시면 바로 판단할 수 있어요. 저도 그렇게 할게요.</p>
+        <span class="me">근거를 붙여 말해요</span>
+        <p class="tip">의견을 낼 때 <strong>자료나 사례 하나</strong>를 함께 붙여, 팀이 바로 판단할 수 있게 해요.</p>
       </li>
       <li>
         <span class="me">글로 정리된 걸 좋아해요</span>
         <p class="tip">말로 정한 것도 <strong>한 줄이라도 기록</strong>해 두면 안심해요. 정리는 제가 먼저 맡아도 괜찮습니다.</p>
       </li>
       <li>
-        <span class="me">개발과 분석은 배우는 중이에요</span>
-        <p class="tip">Python이나 데이터 분석 파트는 <strong>옆에서 같이 해 보고 싶어요.</strong> 잘하시는 분이 계시면 많이 물어볼게요.</p>
+        <span class="me">데이터 분석을 공부하고 있어요</span>
+        <p class="tip">지금은 <strong>SQLD</strong>를 준비하고 있고, 다음 목표는 ADsP예요. 모르는 부분은 잘하는 분께 빨리 물어보며 배웁니다.</p>
       </li>
     </ul>
   </section>
 
   <section>
     <div class="head">
-      <p class="label">TEAM RULES</p>
-      <h2>이렇게 해 보면 어떨까요</h2>
-      <p class="sub">제가 제안하는 팀 규칙이에요. 첫 회의 때 같이 고쳐서 정해요.</p>
+      <p class="label">COLLABORATION</p>
+      <h2>팀에서는 이렇게 맞춰요</h2>
+      <p class="sub">팀 프로젝트를 시작할 때 제가 먼저 제안하는 방식이에요.</p>
     </div>
     <div class="rules">
-      <div class="rule"><span class="when">회의 직후</span><p>정한 것, 할 사람, 마감일을 세 줄로 단톡방에 남겨요.</p></div>
+      <div class="rule"><span class="when">회의 직후</span><p>정한 것, 할 사람, 마감일을 세 줄로 정리해 공유해요.</p></div>
       <div class="rule"><span class="when">마감 하루 전</span><p>완성이 아니어도 중간 결과를 공유해서 방향을 한 번 맞춰요.</p></div>
       <div class="rule"><span class="when">막혔을 때</span><p>혼자 오래 붙잡지 말고 바로 말해요. 늦게 말하는 것보다 일찍 말하는 게 모두에게 좋아요.</p></div>
     </div>
-  </section>
-
-  <section>
-    <div class="head">
-      <p class="label">TEAM PROJECTS</p>
-      <h2>지금까지 해 온 팀 프로젝트</h2>
-    </div>
-    <ul class="projects">
-      <li style="--dot: var(--peri)"><span class="kind">진행 중 · 팀 프로젝트</span><div><b>Konnect</b><span class="desc">나에게 맞는 활동과 참여 후기를 한곳에서 찾는 학생 커뮤니티</span><p class="proj-role">맡은 역할 · 기획, UX/UI, 디자인, 프론트엔드</p></div></li>
-      <li style="--dot: var(--blush)"><span class="kind">아이디어톤</span><div><b>돈독</b><span class="desc">20대 1인 가구가 놓치는 '새는 돈'을 찾아 주는 손실관리 플랫폼</span><p class="proj-role">맡은 역할 · 기획, UX/UI, 디자인</p></div></li>
-      <li style="--dot: var(--blush)"><span class="kind">학습공동체</span><div><b>AI 챗봇 개발</b><span class="desc">타 전공 학생들과 함께한 딥코봇·챗봇 개발 프로젝트</span><p class="proj-role">맡은 역할 · 기획, 데이터 수집</p></div></li>
-    </ul>
-  </section>
-
-  <section class="ask">
-    <p class="label">FIRST MEETING</p>
-    <h2>첫 회의 때 서로 나눠요</h2>
-    <ul>
-      <li>각자 잘하는 것, 그리고 이번에 새로 해 보고 싶은 것</li>
-      <li>회의하기 편한 요일과 시간대, 대면과 비대면 중 어느 쪽이 좋은지</li>
-      <li>연락은 어디로 할지, 답장은 보통 언제쯤 가능한지</li>
-      <li>이번 프로젝트에서 각자 꼭 얻어 가고 싶은 것</li>
-    </ul>
   </section>
 
   <section class="guestbook">
@@ -286,7 +444,8 @@ footer span { color: var(--muted); font-size: 14px; }
   </section>
 
   <footer>
-    <span>경영대학 경영정보학부</span>
+    <span class="sign">임서영</span>
+    <span>경영대학 경영정보학부 · <a href="mailto:luckyyoung@kookmin.ac.kr">luckyyoung@kookmin.ac.kr</a></span>
   </footer>
 </main>
 
@@ -421,6 +580,23 @@ footer span { color: var(--muted); font-size: 14px; }
   });
 
   loadEntries();
+})();
+</script>
+<script>
+// 프로젝트 '자세히 보기' 창 열기. 닫기는 닫기 버튼(form method="dialog")과 Esc 키가 기본으로 처리한다.
+(function () {
+  document.querySelectorAll("[data-detail]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var dialog = document.getElementById(btn.getAttribute("data-detail"));
+      if (dialog && typeof dialog.showModal === "function") dialog.showModal();
+    });
+  });
+  // 창 바깥의 어두운 영역을 누르면 닫는다 (창 안쪽은 .pd-inner가 채우므로 target이 dialog면 바깥)
+  document.querySelectorAll("dialog.pd").forEach(function (dialog) {
+    dialog.addEventListener("click", function (e) {
+      if (e.target === dialog) dialog.close();
+    });
+  });
 })();
 </script>
 </html>
